@@ -3,7 +3,7 @@
 
 # Assume that we have a main directory (miscellaneous - name of the git repository) 
 # absolute path ""C:/Users/Public/Documents/gitprojects/miscellaneous"
-# Inside the man direcotry we have three subdirectory
+# Inside the man directory we have three sub directory
 # 1. code
 # 2. data
 # 3. results
@@ -35,7 +35,7 @@ outputfile <- paste(current_directory_of_plotting_script,"/../results/output.csv
 write.csv(inputdata, file=outputfile, row.names = FALSE)
 
 ## I want to make a plot of new variable z versus x
-plot(inputdata$y ~ inputdata$x) # This will show a plot in Rstudio 
+plot(inputdata$z ~ inputdata$x) # This will show a plot in Rstudio 
 
 # If I want to store the same figure in a file, I need to change the display.
 # The complete list is here (https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/Devices.html)
@@ -47,6 +47,16 @@ plotfilename <- paste(current_directory_of_plotting_script,"/../figures/plot1.jp
 jpeg(filename = plotfilename)
 #step 2 plot
 plot(inputdata$z ~ inputdata$x) # This will show a plot in Rstudio 
+plot(inputdata$y ~ inputdata$x) # This will show a plot in Rstudio 
+# step 3 close the graphical device
+dev.off()
+
+#step 1 open the pdf  graphical device
+plotfilename <- paste(current_directory_of_plotting_script,"/../figures/plot3.pdf", sep="")
+pdf(file = plotfilename)
+#step 2 plot
+plot(inputdata$z ~ inputdata$x) # This will show a plot in Rstudio 
+plot(inputdata$y ~ inputdata$x) # This will show a plot in Rstudio 
 # step 3 close the graphical device
 dev.off()
 
@@ -60,7 +70,7 @@ ggplot_figure <- ggplot(data=inputdata) + geom_path(aes(x = x, y= z))
 plot(ggplot_figure)
 
 # To save this plot inside figures folder, I can use ggsave function (file extension can be pdf, jpeg,..)
-plotfilename <- plotfilename <- paste(current_directory_of_plotting_script,"/../figures/plot2.pdf", sep="")
+plotfilename <- paste(current_directory_of_plotting_script,"/../figures/plot2.pdf", sep="")
 ggsave(file=plotfilename, plot=ggplot_figure)
 
 #No need to use dev.off here
